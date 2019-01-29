@@ -9,18 +9,11 @@ const Container = styled.section`
     background-color: #122734;
 `;
 
-const StyledInput = styled.input`
-
-`;
 class HackerEntry extends Component {
-    componentWillMount = () => {
-
-    }
-    
     render() {
         return (
             <Container>
-                <StyledInput onChange={this.props.onChangeHandler}></StyledInput>
+                {this.props.children}
             </Container>
         )
     }
