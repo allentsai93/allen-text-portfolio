@@ -6,11 +6,6 @@ import 'react-typist/dist/Typist.css';
 import HackerEntry from './containers/HackerEntry';
 import styled, { css, keyframes } from 'styled-components';
 
-const TypeWithAnswer = styled(Typist)`
-  & span { 
-    margin: 0;
-  }
-`;
 class App extends Component {
   state = {
     showHome: false,
@@ -38,28 +33,15 @@ class App extends Component {
     }
   }
 
-  textResponseHandler = (text) => {
-      setTimeout(() => {
-        if(text){
-        text.current.style.display = 'block';
-        }
-      }, 300)
-  }
 
   render() {
     const homeContent = this.state.showHome ? <Home /> : 
     <HackerEntry>
       {this.state.shownText.map((text, i) => {
           if (this.state.text.length === i + 1) {
-            return <Typist key={i} onTypingDone={this.removeListenersAndShowHome}>{text}</Typist>
+            return <div key={i} style={{display: 'flex'}}>&gt;<Typist onTypingDone={this.removeListenersAndShowHome} cursor={{hideWhenDone: false}}>{text}</Typist></div>
           } else {
-            let textRef = React.createRef();
-            return (
-            <div key={i}>
-            <TypeWithAnswer showAnswer={this.state.showAnswer} cursor={{hideWhenDone: true, hideWhenDoneDelay: 0}} onTypingDone={() => this.textResponseHandler(textRef)}>{text}</TypeWithAnswer>
-            <span style={{display: 'none', margin: '0'}} ref={textRef}>{text} <Typist>{text}</Typist></span>
-            </div>
-            )
+            return <div key={i} style={{display: 'flex'}}>&gt;<Typist cursor={{hideWhenDone: true, hideWhenDoneDelay: 0}}>{text}</Typist></div>
           } 
       })}
     </HackerEntry>;
